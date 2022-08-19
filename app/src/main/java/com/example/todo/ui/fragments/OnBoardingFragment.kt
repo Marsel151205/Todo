@@ -1,5 +1,7 @@
 package com.example.todo.ui.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,9 +36,20 @@ class OnBoardingFragment : Fragment(), OnItemClicker {
         list.add(OnBoardingModel(R.drawable.on_boarding_3, "Развивайся", "Начинаем"))
         binding.viewPager.adapter = OnBoardingAdapter(list, this)
         binding.dotsIndicator.attachTo(binding.viewPager)
+
+        val sharedPreferences: SharedPreferences =
+            requireContext().getSharedPreferences("board_preferences", Context.MODE_PRIVATE)
+        val isShow = sharedPreferences.getBoolean("isShow", false)
+        if (isShow){
+            findNavController().navigate(R.id.clearBackStack)
+        }
+
     }
 
     override fun onClick() {
+        val sharedPreferences: SharedPreferences =
+            requireContext().getSharedPreferences("board_preferences", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean("isShow", true).apply()
         findNavController().navigate(R.id.clearBackStack)
 
     }

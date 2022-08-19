@@ -11,8 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.example.todo.R
+import com.example.todo.databinding.DialogRegularBinding
 import com.example.todo.databinding.FragmentCreateTaskDataBinding
+import com.example.todo.ui.fragments.models.CreateDataModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -58,6 +61,17 @@ class CreateTaskData : BottomSheetDialogFragment() {
         binding.btnRegular.setOnClickListener {
             showRegularDialog()
         }
+        binding.btnApply.setOnClickListener {
+            val bundle = Bundle()
+            val model = CreateDataModel(
+                binding.etTask.text.toString(),
+                binding.btnDate.text.toString(),
+                binding.btnRegular.text.toString()
+            )
+            bundle.putSerializable("model", model)
+            findNavController().navigate(R.id.homeFragment, bundle)
+            dismiss()
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -65,16 +79,31 @@ class CreateTaskData : BottomSheetDialogFragment() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
-        dialog.setContentView(R.layout.dialog_regular)
-        dialog.show()
+        val binding = DialogRegularBinding.inflate(layoutInflater)
+        dialog.setContentView(binding.root)
 
-        val inflater = LayoutInflater.from(context)
-        val registrationDialog: View = inflater.inflate(R.layout.dialog_regular, null)
-        dialog.setContentView(registrationDialog)
-
-        val tvCancel: TextView = registrationDialog.findViewById(R.id.btn_cancel)
-        tvCancel.setOnClickListener {
-            dialog.dismiss()
+        with(binding) {
+            btnEveryday.setOnClickListener {
+                this@CreateTaskData.binding.btnRegular.text = btnEveryday.text
+                dialog.dismiss()
+            }
+            btnEveryWeek.setOnClickListener {
+                this@CreateTaskData.binding.btnRegular.text = btnEveryWeek.text
+                dialog.dismiss()
+            }
+            btnMonth.setOnClickListener {
+                this@CreateTaskData.binding.btnRegular.text = btnMonth.text
+                dialog.dismiss()
+            }
+            btnEveryYear.setOnClickListener {
+                this@CreateTaskData.binding.btnRegular.text = btnEveryYear.text
+                dialog.dismiss()
+            }
+            btnCancel.setOnClickListener {
+                dialog.dismiss()
+            }
         }
+
+        dialog.show()
     }
 }

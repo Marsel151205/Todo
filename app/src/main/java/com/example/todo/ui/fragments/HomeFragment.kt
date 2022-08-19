@@ -7,10 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.todo.R
 import com.example.todo.databinding.FragmentHomeBinding
+import com.example.todo.ui.adapters.TaskAdapter
+import com.example.todo.ui.fragments.models.CreateDataModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    var model: CreateDataModel? = null
+    val list = arrayListOf<CreateDataModel>()
+    var adapter = TaskAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +29,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initClicker()
+        if (arguments != null) {
+            model = arguments?.getSerializable("model") as CreateDataModel
+            list.add(model!!)
+        }
+        adapter = TaskAdapter(list)
+        binding.recyclerTask.adapter = adapter
     }
 
     private fun initClicker() {
@@ -31,5 +42,10 @@ class HomeFragment : Fragment() {
             val dialog = CreateTaskData()
             dialog.show(requireActivity().supportFragmentManager, "")
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        list.clear()
     }
 }

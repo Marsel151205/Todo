@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/drawable/rectange_bottom_sheet_dialog.xml" value="0.1635" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/drawable/rectangle_button.xml" value="0.1635" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/drawable/rectangle_item_task.xml" value="0.1955" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/activity_main.xml" value="0.2598958333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/custom_calendar.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/dialog_regular.xml" value="0.27447916666666666" />
@@ -14,6 +15,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/fragment_on_boarding.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/fragment_profile.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/item_on_boarding.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/item_task.xml" value="0.2713541666666667" />
       </map>
     </option>
   </component>
