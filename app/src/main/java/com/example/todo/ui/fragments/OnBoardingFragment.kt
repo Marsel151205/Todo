@@ -7,11 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import com.example.todo.R
 import com.example.todo.databinding.FragmentOnBoardingBinding
-import com.example.todo.ui.`interface`.OnItemClicker
+import com.example.todo.ui.inter.OnItemClicker
 import com.example.todo.ui.adapters.OnBoardingAdapter
 import com.example.todo.ui.fragments.models.OnBoardingModel
 

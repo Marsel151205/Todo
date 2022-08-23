@@ -2,10 +2,9 @@ package com.example.todo.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo.databinding.ItemOnBoardingBinding
-import com.example.todo.ui.`interface`.OnItemClicker
+import com.example.todo.ui.inter.OnItemClicker
 import com.example.todo.ui.fragments.models.OnBoardingModel
 
 class OnBoardingAdapter(private val list: ArrayList<OnBoardingModel>, val listener: OnItemClicker) :

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import com.example.todo.App
 import com.example.todo.R
 import com.example.todo.databinding.DialogRegularBinding
 import com.example.todo.databinding.FragmentCreateTaskDataBinding
@@ -22,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class CreateTaskData : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentCreateTaskDataBinding
+    private var taskModel: CreateDataModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +44,14 @@ class CreateTaskData : BottomSheetDialogFragment() {
 
         initClicker()
 
+        if (arguments != null) {
+            taskModel = arguments?.get("model") as CreateDataModel
+            with(binding) {
+                etTask.setText(taskModel?.task)
+                btnDate.text = taskModel?.date
+                btnRegular.text = taskModel?.regular
+            }
+        }
     }
 
     private fun initClicker() {
@@ -62,15 +72,30 @@ class CreateTaskData : BottomSheetDialogFragment() {
             showRegularDialog()
         }
         binding.btnApply.setOnClickListener {
-            val bundle = Bundle()
             val model = CreateDataModel(
-                binding.etTask.text.toString(),
-                binding.btnDate.text.toString(),
-                binding.btnRegular.text.toString()
+                task = binding.etTask.text.toString(),
+                date = binding.btnDate.text.toString(),
+                regular = binding.btnRegular.text.toString()
             )
-            bundle.putSerializable("model", model)
-            findNavController().navigate(R.id.homeFragment, bundle)
-            dismiss()
+            if (binding.etTask.text.isNotEmpty()) {
+                if (arguments != null){
+                    val upDateModel = CreateDataModel(
+                        id = taskModel?.id,
+                        task = binding.etTask.text.toString(),
+                        date = binding.btnDate.text.toString(),
+                        regular = binding.btnRegular.text.toString()
+                    )
+                    App.appDataBase.taskDao().updateData(upDateModel)
+                }else{
+                    App.appDataBase.taskDao().insert(model)
+                }
+                findNavController().navigate(R.id.homeFragment)
+                dismiss()
+
+            } else {
+                binding.etTask.error = "Задача не может быть пустым"
+            }
+
         }
     }
 
