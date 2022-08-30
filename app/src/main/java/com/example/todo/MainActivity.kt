@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment).navigate(R.id.profileFragment)
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.onBoardingFragment) {
+            if (destination.id == R.id.onBoardingFragment || destination.id == R.id.authFragment || destination.id == R.id.registrationFragment || destination.id == R.id.welcomeFragment) {
                 binding.toolbar.visibility = View.GONE
             } else {
                 binding.toolbar.visibility = View.VISIBLE

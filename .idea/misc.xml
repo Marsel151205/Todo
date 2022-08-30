@@ -16,6 +16,13 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/fragment_profile.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/item_on_boarding.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Todo/app/src/main/res/layout/item_task.xml" value="0.2713541666666667" />
+        <entry key="..\:/Users/Admin/StudioProjects/Todo/app/src/main/res/drawable/rectangle_item_task.xml" value="0.12" />
+        <entry key="..\:/Users/Admin/StudioProjects/Todo/app/src/main/res/drawable/view_registration_button.xml" value="0.12" />
+        <entry key="..\:/Users/Admin/StudioProjects/Todo/app/src/main/res/drawable/view_registration_edit_text.xml" value="0.1575" />
+        <entry key="..\:/Users/Admin/StudioProjects/Todo/app/src/main/res/layout/dialog_regular.xml" value="0.1265625" />
+        <entry key="..\:/Users/Admin/StudioProjects/Todo/app/src/main/res/layout/fragment_auth.xml" value="0.128" />
+        <entry key="..\:/Users/Admin/StudioProjects/Todo/app/src/main/res/layout/fragment_registration.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Admin/StudioProjects/Todo/app/src/main/res/layout/fragment_welcome.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>
