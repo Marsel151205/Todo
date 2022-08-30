@@ -30,7 +30,7 @@ class RegistrationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initClicker()
         auth = Firebase.auth
-        checkUser()
+        checkerUser()
     }
 
     private fun initClicker() {
@@ -38,7 +38,7 @@ class RegistrationFragment : Fragment() {
             findNavController().navigate(R.id.authFragment)
         }
     }
-    private fun checkUser() {
+    private fun checkerUser() {
         val firebaseUser = auth.currentUser
         if (firebaseUser != null) {
             findNavController().navigate(R.id.homeFragment)
