@@ -58,6 +58,7 @@ class ProfileFragment : Fragment() {
             items.forEachIndexed { index, storageReference ->
                 storageReference.downloadUrl.addOnSuccessListener {
                     Log.d("item", "$it")
+                        //загрузка фотки пользователя с firebase
                     Glide.with(binding.ivProfileImage).load(it).into(binding.ivProfileImage)
                 }
             }
