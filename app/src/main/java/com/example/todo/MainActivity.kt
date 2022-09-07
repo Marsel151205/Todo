@@ -38,11 +38,24 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.ivToolbarIcon.setOnClickListener {
-            findNavController(R.id.nav_host_fragment).navigate(R.id.profileFragment)
-        }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.onBoardingFragment || destination.id == R.id.authFragment || destination.id == R.id.registrationFragment || destination.id == R.id.welcomeFragment) {
+            if (destination.id == R.id.homeFragment) {
+                binding.ivToolbarIcon.setOnClickListener {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.profileFragment)
+                }
+            } else if (destination.id == R.id.profileFragment) {
+                binding.ivToolbarIcon.setOnClickListener {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment)
+                }
+            }
+        }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.onBoardingFragment || destination.id == R.id.authFragment ||
+                destination.id == R.id.registrationFragment || destination.id == R.id.welcomeFragment ||
+                destination.id == R.id.createProfileFragment ||
+                destination.id == R.id.confirmPasswordFragment
+            ) {
                 binding.toolbar.visibility = View.GONE
             } else {
                 binding.toolbar.visibility = View.VISIBLE

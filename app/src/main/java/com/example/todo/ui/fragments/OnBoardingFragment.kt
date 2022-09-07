@@ -30,16 +30,16 @@ class OnBoardingFragment : Fragment(), OnItemClicker {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        list.add(OnBoardingModel(R.drawable.on_boarding_1, "Экономь время", "Дальше"))
-        list.add(OnBoardingModel(R.drawable.on_boarding_2, "Достигай целей", "Дальше"))
-        list.add(OnBoardingModel(R.drawable.on_boarding_3, "Развивайся", "Начинаем"))
+        list.add(OnBoardingModel("animation/save_time.json", "Экономь время", "Дальше"))
+        list.add(OnBoardingModel("animation/reach_your_goal.json", "Достигай целей", "Дальше"))
+        list.add(OnBoardingModel("animation/develop.json", "Развивайся", "Начинаем"))
         binding.viewPager.adapter = OnBoardingAdapter(list, this)
         binding.dotsIndicator.attachTo(binding.viewPager)
 
         val sharedPreferences: SharedPreferences =
             requireContext().getSharedPreferences("board_preferences", Context.MODE_PRIVATE)
         val isShow = sharedPreferences.getBoolean("isShow", false)
-        if (isShow){
+        if (isShow) {
             findNavController().navigate(R.id.clearBackStack)
         }
 

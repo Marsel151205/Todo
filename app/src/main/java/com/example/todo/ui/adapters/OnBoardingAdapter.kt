@@ -31,7 +31,7 @@ class OnBoardingAdapter(private val list: ArrayList<OnBoardingModel>, val listen
 
         fun onBind(model: OnBoardingModel) {
             binding.tvTittleViewPager.text = model.tittle
-            binding.ivViewPager.setImageResource(model.image)
+            binding.lottieImage.setAnimation(model.image)
             binding.btnNext.text = model.txtBtn
 
             if (binding.btnNext.text.equals("Начинаем")) {

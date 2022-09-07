@@ -41,7 +41,7 @@ class RegistrationFragment : Fragment() {
     private fun checkerUser() {
         val firebaseUser = auth.currentUser
         if (firebaseUser != null) {
-            findNavController().navigate(R.id.homeFragment)
+            findNavController().navigate(R.id.authFragment)
         }
     }
 }
