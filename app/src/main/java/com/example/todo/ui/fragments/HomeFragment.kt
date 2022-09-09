@@ -36,7 +36,6 @@ class HomeFragment : Fragment(), OnItemClickHome {
         super.onViewCreated(view, savedInstanceState)
         initClicker()
 
-//        App.appDataBase.taskDao().getAll().observe(viewLifecycleOwner) {data->
         val list = arrayListOf<CreateDataModel>()
 
         fireStore.collection("task").get().addOnSuccessListener { result ->

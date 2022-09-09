@@ -1,12 +1,13 @@
 package com.example.todo.ui.fragments
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,18 +16,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.todo.databinding.FragmentProfileBinding
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.net.URL
+import java.io.IOException
 import java.util.*
-import androidx.annotation.NonNull
-
-import com.google.android.gms.tasks.OnFailureListener
 
 
 class ProfileFragment : Fragment() {
@@ -34,6 +31,8 @@ class ProfileFragment : Fragment() {
     lateinit var binding: FragmentProfileBinding
     private val fireStore = Firebase.firestore
     private lateinit var auth: FirebaseAuth
+    private val PICK_IMAGE_REQUEST = 1
+    private var imageUri: Uri? = null
     private var storage: FirebaseStorage? = null
     private var storageRef: StorageReference? = null
 
@@ -51,19 +50,19 @@ class ProfileFragment : Fragment() {
         addUserInfo()
         auth = Firebase.auth
         storage = FirebaseStorage.getInstance()
-        storageRef = storage!!.reference.child("myImages")
-        val userImage = storageRef!!.listAll()
-        userImage.addOnCompleteListener { result ->
-            val items = result.result!!.items
-            items.forEachIndexed { index, storageReference ->
-                storageReference.downloadUrl.addOnSuccessListener {
-                    Log.d("item", "$it")
-                        //загрузка фотки пользователя с firebase
-                    Glide.with(binding.ivProfileImage).load(it).into(binding.ivProfileImage)
-                }
-            }
-        }
+        storageRef = storage!!.reference.child("myImages/" + "profile_image")
 
+        val userImage = storageRef!!.downloadUrl
+        userImage.addOnCompleteListener { result ->
+            Log.d("item", "${result.result}")
+            Glide.with(binding.ivProfileImage).load(result.result).into(binding.ivProfileImage)
+        }
+        binding.ivProfileImage.setOnClickListener {
+            launchGallery()
+        }
+        binding.btnUploadImage.setOnClickListener {
+            uploadImage()
+        }
     }
 
 
@@ -98,13 +97,36 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun downloadImage(reference: StorageReference) {
-        reference.downloadUrl.addOnSuccessListener {
-            val url: String = it.toString()
-            Glide.with(requireContext()).load(url).into(binding.ivProfileImage)
-        }.addOnFailureListener {
-            // Handle any errors
-        }
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            if (data == null || data.data == null) {
+                return
+            }
+            imageUri = data.data
+            try {
+                val bitmap =
+                    MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, imageUri)
+                binding.ivProfileImage.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun uploadImage() {
+        if (imageUri != null) {
+            Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+            storageRef?.putFile(imageUri!!)
+        } else {
+            Toast.makeText(requireContext(), "Please Upload an Image", Toast.LENGTH_SHORT).show()
+        }
     }
 }

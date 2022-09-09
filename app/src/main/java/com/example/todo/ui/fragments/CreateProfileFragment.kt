@@ -115,9 +115,7 @@ class CreateProfileFragment : Fragment() {
 
     private fun uploadImage() {
         if (imageUri != null) {
-            val ref = storageRef?.child("myImages/" + UUID.randomUUID().toString())
-            val uploadTask = ref?.putFile(imageUri!!)
-
+            storageRef?.child("myImages/" + "profile_image")?.putFile(imageUri!!)
         } else {
             Toast.makeText(requireContext(), "Please Upload an Image", Toast.LENGTH_SHORT).show()
         }
